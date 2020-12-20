@@ -1,0 +1,21 @@
+01:39:49	Watson Marin:	sudo yum update -y sudo yum install java
+01:47:56	Rose:	https://apache.osuosl.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.zip
+02:03:39	Mike-Gabriel:	Launch 2 EC2 Instances-> Linux ami-> Webserver->default VPC->Security rules: SSH 22,HTTP 80 Source: AnywhereEC2 Instances-> Linux ami-> Appserver->default VPC->Security rules: SSH 22,HTTP 8080 Source: AnywhereSSH into the Appserver and install Java-> sudo -i -> sudo yum install java -y -> open a browser and search apache tomcat download -> click on the zip file and right click and copy link: https://apache.osuosl.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.zip-in the app server -> cd /opt ->ls -> mkdir tomcat -> cd tomcat ->wget https://apache.osuosl.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.zip
+03:29:37	Rose:	amazon-linux-extras list |grep nginx   13      3  amazon-linux-extras install nginx1 -y   14      4  service status nginx   15      5  service status nginx1   16      6  systemctl status nginx   17      7  systemctl status nginx1   18      8  systemctl start nginx   19      9  systemctl enable nginx   20     10  history
+03:33:58	Rose:	brb
+03:50:51	Mike-Gabriel:	Rose has muted me 
+03:50:52	Mike-Gabriel:	lol
+03:51:14	Aloyzio:	You've muted everyone
+03:51:19	Mike-Gabriel:	I have been muted 
+03:51:21	Aloyzio:	I can't unmute myself
+03:51:33	Dinga:	we can’t
+03:51:41	Mike-Gabriel:	Yes I can't unmute
+03:51:50	Dinga:	we can’t unmute
+03:51:55	Raj:	Please unmute us oh
+03:52:33	Aimee:	YOU NEED TO GIVE ACCESS BEFORE WE CAN TALK
+03:52:57	Watson Marin:	what's the dealy here
+03:53:21	Mike-Gabriel:	Rose what have I done 
+03:53:22	Dinga:	yes
+04:12:22	Mike-Gabriel:	Launch 2 EC2 Instances-> Linux ami-> Webserver->default VPC->Security rules: SSH 22,HTTP 80 Source: AnywhereEC2 Instances-> Linux ami-> Appserver->default VPC->Security rules: SSH 22,HTTP 8080 Source: AnywhereSSH into the Appserver and install Java-> sudo -i -> sudo yum install java -y -> open a browser and search apache tomcat download -> click on the zip file and right click and copy link: https://apache.osuosl.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.zip-in the app server -> cd /opt (this is where the configurations files are kept)->ls -> mkdir tomcat -> cd tomcat ->wget https://apache.osuosl.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.zip-> unzip  apache-tomcat -> ls -> cd apache-tomcat-10.0.0.zip-. ls-l -> cd bin ->ls-l -> give the execution command -> chmod +x ./* -> ls-l -> ./startup.sh (this is to start up the application) ->-> copy the public ip of your Appwebserver and paste it on a browser and include :8080 -> eg ip addreess:8080 -> -> on the Appwebserver EC2->Actions->
+04:18:39	Rose:	brb
+05:02:10	Mike-Gabriel:	Baking of the Webserver Golden AMI--webserver -> ssh -> sudo -i -> amazon-linux-extras list -> amazon-linux-extras list |grep ngnix -> amazon-linux-extras install nginx1 -y-> service nginx start -> service nginx enable->  service nginx status -or systemctl start NGINX -> SYSTEMCTL ENABLE NGINX -> ON THE WEBSERVER EC2 intance ->Actions -> image and template-> create image-> name it-> WebServer-Golden Ami- name on description nginx-> leave everything on default-> create image
