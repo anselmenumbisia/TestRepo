@@ -1,0 +1,95 @@
+VPC = LiveAppVpc = 200.0.0.0/16
+NAT GATEWAY
+- LiveAppNG-1 AZ = A
+- LiveAppNG-2 AZ = B
+
+IGW = LiveAppIGW
+
+1 = WEB LOADBALANCER
+- LiveWebPubLB-SN1  AZ = A = 200.0.1.0/24 
+- LiveWebPubLB-SN2  AZ = B = 200.0.2.0/24
+
+
+2 = WEB SERVERS
+- LiveWebServers-SN1 AZ = A = 200.0.3.0/24
+- LiveWebServers-SN2 AZ = B = 200.0.4.0/24
+
+3 = APP LOADBALANCER 
+- LiveAppLB-SN1 AZ = A = 200.0.5.0/24
+- LiveAppLB-SN2 AZ = B = 200.0.6.0/24
+
+4 = APP SERVERS
+- LiveAppServers-SN1 AZ = A = 200.0.7.0/24
+- LiveAppServers-SN2 AZ = B = 200.0.8.0/24
+
+5 = DB-INSTANCES
+- LiveDB-SN1 AZ = A = 200.0.9.0/24
+- LiveDB-SN2 AZ = B = 200.0.10.0/24
+
+ROUTE-TABLES
+1 = LivePri1-AZ-A
+2 = LivePri2-AZ-B
+3 = LivePubRT1
+-------------------------------------------------
+VPC = ManagementVPC = 100.0.0.0/16
+IGW = MngmtIGW
+1 = BastionHost
+- BastionHostPubSN-1 = 100.0.2.0/24
+- BastionHostPriSN-2  =  100.0.3.0/24
+
+ROUTE TABLES
+- BastionHostPubRT-1
+- BastionHostPriRT-2
+
+
+-------------------------------------------------
+
+PEERING CONNECTION
+-Production requesting management
+-EDIT RELEVANT ROUTE TABLES
+-------------------------------------------------
+SUBNET ASS FOR PRODUCTION VPC:
+1 = WEB LOADBALANCER
+- LiveWebPubLB-SN1  AZ = A = LivePubRT1
+- LiveWebPubLB-SN2  AZ = B = LivePubRT1
+
+2 = WEB SERVERS
+- LiveWebServers-SN1 AZ = A = LivePri1-AZ-A
+- LiveWebServers-SN2 AZ = B = LivePri2-AZ-B
+
+3 = APP LOADBALANCER 
+- LiveAppLB-SN1 AZ = A = LivePri1-AZ-A
+- LiveAppLB-SN2 AZ = B = LivePri2-AZ-B
+
+4 = APP SERVERS
+- LiveAppServers-SN1 AZ = A = LivePri1-AZ-A
+- LiveAppServers-SN2 AZ = B = LivePri2-AZ-B
+
+5 = DB-INSTANCES
+- LiveDB-SN1 AZ = A = LivePri1-AZ-A
+- LiveDB-SN2 AZ = B = LivePri2-AZ-B
+
+-------------------------------------------------
+SECUIRITY GROUPS:  PRODUCTION VPC
+- LiveWebPubLB-SG
+Rules: Https:443, Source: 0.0.0.0/0
+
+-LiveWebServers-SG
+Rules: Https:443, Source: LiveWebPubLB-SG id
+
+-LiveAppLB-SG  
+Rules: Http:8080, Source: LiveWebServers-SG id
+
+-LiveAppServers-SG
+Rules: http:8080, Source: LiveAppLB-SG id
+
+-LiveDB-SG
+Rules: MySql:3306, Source: LiveAppServers-SG id
+
+-Prod-Bastion-Access-SG
+Rules: SSH:22, Source: LiveBastionHost-SG id
+
+-------------------------------------------------
+SECUIRITY GROUPS:  MANAGEMENT VPC
+- LiveBastionHost-SG
+Rules: SSH:22, Source: 0.0.0.0/0
